@@ -1,0 +1,51 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Update Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Update {{ movie_to_update.title }}</h1>
+</div>
+    <div><a href="{{ url_for('home') }}" class="button" style="margin-left: 16px;">Home</a></div>
+<div class="row container" style="margin: 0% 5% 0%">
+    <div class="col-md-3">
+        <img src="{{ movie_to_update.img_url }}" style="width: 100%">
+
+    </div>
+    <div class="col-md-4">
+        <div>
+            <div class="title smaller">{{ movie_to_update.title }} <span
+                    class="release_date">({{ movie_to_update.year }})</span>
+            </div>
+            <p class="img_url">
+                <a href = "{{ movie_to_update.img_url }}">&lt;movie-poster-link&gt;</a>
+            </p>
+            <p class="review">
+                {{ movie_to_update.description }}
+            </p>
+            <div class="rating medium">
+                <label>{{ movie_to_update.rating }}</label>
+                <i class="fas fa-star star"></i>
+            </div>
+            <br>
+            <p class="review smallest">{{ movie_to_update.review }}</p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        {{ wtf.quick_form(update_form, novalidate=True) }}
+    </div>
+</div>
+
+<!--<div class="container" style="width: 60%;">-->
+<!--    {{ wtf.quick_form(update_form, novalidate=True) }}-->
+<!--</div>-->
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Select Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Select a Movie</h1>
+</div>
+    <div  style="margin-bottom: 30px;"><a href="{{ url_for('home') }}" class="button" style="margin-left: 16px;">Home</a></div>
+<div class="container">
+    {% for movie in movie_data_list: %}
+    {% set date = movie["release_date"] %}
+    {% if date: %}
+    {{ KNOWN }}
+    {% set year = date.split("-")[0] %}
+    {% else %}
+    {{ UNKNOWN }}
+    {% set year = "?" %}
+    {% endif %}
+    <a class="smaller" href="{{ url_for('confirm_movie',
+    title=movie['title'],
+    year=year,
+    description=movie['overview'],
+    img_url=movie['poster_path']) }}">
+        {{movie["title"]}} - {{year}}  </a>
+    <br>
+    {% endfor %}
+</div>
+
+{% endblock %}
